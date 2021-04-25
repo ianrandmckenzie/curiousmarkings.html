@@ -9,7 +9,51 @@ $(document).ready(function(){
 
   $(window).resize(function(){
     flushResize();
+  });
+
+  var starry = $(".starry img");
+  if(starry[0]) {
+    starry.first().css('transition', '5s');
+    starry.first().css('opacity', '1');
+  }
+
+  $('.colorCarousel').carousel({
+    interval: 3000
   })
+
+  $('.carousel.carouselForward .carousel-item').each(function(){
+      var next = $(this).next();
+      if (!next.length) {
+      next = $(this).siblings(':first');
+      }
+      next.children(':first-child').clone().appendTo($(this));
+      
+      for (var i=0;i<8;i++) {
+          next=next.next();
+          if (!next.length) {
+            next = $(this).siblings(':first');
+          }
+          
+          next.children(':first-child').clone().appendTo($(this));
+        }
+  });
+
+  $('.carousel.carouselBackward .carousel-item').each(function(){
+      var prev = $(this).prev();
+      if (!prev.length) {
+      prev = $(this).siblings(':last');
+      }
+      prev.children(':last-child').clone().prependTo($(this));
+      
+      for (var i=0;i<8;i++) {
+          prev=prev.prev();
+          if (!prev.length) {
+            prev = $(this).siblings(':last');
+          }
+          
+          prev.children(':last-child').clone().prependTo($(this));
+        }
+  });
 });
 
 function startdecrypt(decrypted, encrypted) {
